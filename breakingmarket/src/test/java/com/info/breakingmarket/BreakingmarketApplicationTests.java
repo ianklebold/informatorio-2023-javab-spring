@@ -1,10 +1,10 @@
-package com.info.breakmarket;
+package com.info.breakingmarket;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BreakmarketApplicationTests {
+class BreakingmarketApplicationTests {
 
 	@Test
 	void contextLoads() {

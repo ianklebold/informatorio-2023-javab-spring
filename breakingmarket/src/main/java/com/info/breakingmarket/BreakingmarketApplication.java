@@ -1,13 +1,13 @@
-package com.info.breakmarket;
+package com.info.breakingmarket;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BreakmarketApplication {
+public class BreakingmarketApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BreakmarketApplication.class, args);
+		SpringApplication.run(BreakingmarketApplication.class, args);
 	}
 
 }
