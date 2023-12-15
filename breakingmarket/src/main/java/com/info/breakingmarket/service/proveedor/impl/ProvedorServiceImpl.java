@@ -2,6 +2,7 @@ package com.info.breakingmarket.service.proveedor.impl;
 
 import com.info.breakingmarket.dominio.Proveedor;
 import com.info.breakingmarket.dto.proveedor.ProveedorDto;
+import com.info.breakingmarket.exception.NotFoundException;
 import com.info.breakingmarket.mapper.producto.ProductoMapper;
 import com.info.breakingmarket.mapper.proveedor.ProveedorMapper;
 import com.info.breakingmarket.repository.proveedor.ProveedorRepository;
@@ -38,7 +39,7 @@ public class ProvedorServiceImpl implements ProveedorService {
     @Override
     public ProveedorDto obtenerProveedorPorId(UUID idProveedor) {
         Proveedor proveedor = proveedorRepository.findById(idProveedor)
-                .orElseThrow(() -> new RuntimeException("No se encuentra proveedor con id : " + idProveedor)  );
+                .orElseThrow(() -> new NotFoundException("Proveedor","idProveedor",idProveedor.toString())  );
 
         ProveedorDto proveedorDto = ProveedorMapper.mapToProveedorDto(proveedor, new ProveedorDto());
         proveedorDto.setProductoDtos(ProductoMapper.mapToProductoDtos(proveedor.getProductos(), new ArrayList<>()));
@@ -49,7 +50,7 @@ public class ProvedorServiceImpl implements ProveedorService {
     @Override
     public boolean eliminarProveedorPorId(UUID uuid) {
         Proveedor proveedor = proveedorRepository.findById(uuid)
-                .orElseThrow(() -> new RuntimeException("No se encuentra proveedor con id : " + uuid)  );
+                .orElseThrow(() -> new NotFoundException("Proveedor","idProveedor",uuid.toString()));
 
         productoService.eliminarProductos(proveedor.getProductos());
         proveedorRepository.delete(proveedor);
