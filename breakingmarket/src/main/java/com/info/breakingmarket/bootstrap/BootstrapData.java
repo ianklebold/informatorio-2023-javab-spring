@@ -31,39 +31,45 @@ public class BootstrapData implements CommandLineRunner {
     }
 
     private void cargarCategorias(){
-        Categoria categoria = new Categoria();
-        categoria.setId(1L);
-        categoria.setNombre("Categoria Prueba");
+        if (categoriaRepository.count() == 0){
+            Categoria categoria = new Categoria();
+            categoria.setId(1L);
+            categoria.setNombre("Categoria Prueba");
 
-        categoriaRepository.save(categoria);
+            categoriaRepository.save(categoria);
+        }
     }
 
     private void cargarProveedor(){
-        Proveedor proveedor = new Proveedor();
-        proveedor.setId(UUID.randomUUID());
-        proveedor.setNombre("Proveedor prueba");
-        proveedor.setCreadoPor("Anonimo");
-        proveedor.setCreadoEn(LocalDateTime.now());
+        if (proveedorRepository.count() == 0){
+            Proveedor proveedor = new Proveedor();
+            proveedor.setId(UUID.randomUUID());
+            proveedor.setNombre("Proveedor prueba");
+            proveedor.setCreadoPor("Anonimo");
+            proveedor.setCreadoEn(LocalDateTime.now());
 
-        proveedorRepository.save(proveedor);
+            proveedorRepository.save(proveedor);
+        }
     }
 
     private void cargarProductos(){
-        Producto producto = new Producto();
-        producto.setId(UUID.randomUUID());
-        producto.setNombre("Producto prueba");
-        producto.setDescripcion("Descripcion del producto");
-        producto.setCategorias(List.of(categoriaRepository.findById(1L).get()));
-        producto.setStock(100);
-        producto.setPrecio(50d);
-        producto.setCreadoPor("Anonimo");
-        producto.setCreadoEn(LocalDateTime.now());
+        if (productoRepository.count() == 0){
+            Producto producto = new Producto();
+            producto.setId(UUID.randomUUID());
+            producto.setNombre("Producto prueba");
+            producto.setDescripcion("Descripcion del producto");
+            producto.setCategorias(List.of(categoriaRepository.findById(1L).get()));
+            producto.setStock(100);
+            producto.setPrecio(50d);
+            producto.setCreadoPor("Anonimo");
+            producto.setCreadoEn(LocalDateTime.now());
 
 
-        for (Proveedor proveedor:proveedorRepository.findAll()) {
-            proveedor.getProductos().add(producto);
-            producto.setProveedor(proveedor);
-            productoRepository.save(producto);
+            for (Proveedor proveedor:proveedorRepository.findAll()) {
+                proveedor.getProductos().add(producto);
+                producto.setProveedor(proveedor);
+                productoRepository.save(producto);
+            }
         }
     }
 
